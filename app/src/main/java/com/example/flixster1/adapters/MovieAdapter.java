@@ -1,5 +1,7 @@
 package com.example.flixster1.adapters;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -12,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -122,9 +125,11 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     Intent intent = new Intent(context, DetailActivity.class);
                     // put "extras" into the bundle for access in the second activity
                     intent.putExtra("movie", Parcels.wrap(movie));
-//                    intent.putExtra("movie", movie.getTitle());
                     // brings up the second activity
-                    context.startActivity(intent);
+                    ActivityOptions options = ActivityOptions.
+                            makeSceneTransitionAnimation((Activity)context, ivPoster, "transition");
+                    context.startActivity(intent, options.toBundle());
+//                    context.startActivity(intent);
 
                 }
             });
@@ -159,9 +164,11 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     Intent intent2 = new Intent(context, DetailActivity.class);
                     // put "extras" into the bundle for access in the second activity
                     intent2.putExtra("movie", Parcels.wrap(movie));
-//                    intent2.putExtra("movie", movie.getTitle());
                     // brings up the second activity
-                    context.startActivity(intent2);
+                    ActivityOptions options2 = ActivityOptions.
+                            makeSceneTransitionAnimation((Activity)context, backdropPath, "transition");
+                    context.startActivity(intent2, options2.toBundle());
+//                    context.startActivity(intent2);
                 }
             });
         }
@@ -171,9 +178,9 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @Override
     public int getItemViewType(int position) {
         //More to come
-        if (movies.get(position).getVote_average() < 7.5) {
+        if (movies.get(position).getVote_average() < 5) {
             return 0;
-        } else if (movies.get(position).getVote_average() >= 7.5) {
+        } else if (movies.get(position).getVote_average() >= 5) {
             return 1;
 
         }
