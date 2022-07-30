@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<RelativeLayout
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable name="movie" type="com.example.flixster1.models.Movie"/>
+    </data>
+
+<RelativeLayout
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -19,6 +24,7 @@
         android:layout_marginStart="2dp"
         android:layout_marginTop="12dp"
         tools:srcCompat="@tools:sample/avatars"
+        app:imageUrl="@{movie.backdropPath}"
         />
 
     <TextView
@@ -30,6 +36,7 @@
         android:layout_marginStart="7dp"
         android:layout_toEndOf="@+id/ivPoster"
         android:textSize="24sp"
+        android:text="@{movie.title}"
         tools:text="Fast  Furious Presents Hobb Shaw" />
 
     <TextView
@@ -40,6 +47,8 @@
         android:layout_marginStart="22dp"
         android:layout_marginTop="9dp"
         android:layout_toEndOf="@+id/ivPoster"
+        android:text="@{movie.overview}"
         tools:text="A spinoff of the fate of the furious ,focusing as Johson's 35 Diplomatic Security agent Luke Hobbs forming  an unikely alliance with Stathams Deckard Shaw" />
 
 </RelativeLayout>
+</layout>

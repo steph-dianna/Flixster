@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityOptionsCompat;
+import androidx.databinding.BindingAdapter;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -25,13 +27,15 @@ import com.example.flixster1.R;
 import java.util.List;
 
 //import com.example.flixster1.databinding.ItemMovieBinding;
+import com.example.flixster1.databinding.ItemMovieBinding;
+import com.example.flixster1.databinding.PlusPopulaireBinding;
 import com.example.flixster1.models.Movie;
 
 import org.parceler.Parcels;
 
 
 public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    Context context;
+    public static Context context;
     List<Movie> movies;
 
 
@@ -51,10 +55,10 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
 
         if (viewType == 1) {
-            View film = inflater.inflate(R.layout.plus_populaire, parent, false);
+            PlusPopulaireBinding film = DataBindingUtil.inflate(inflater,R.layout.plus_populaire, parent, false);
             viewHolder = new ViewHolder1(film);
         } else {
-            View film2 = inflater.inflate(R.layout.item_movie, parent, false);
+            ItemMovieBinding film2 = DataBindingUtil.inflate(inflater,R.layout.item_movie, parent, false);
             viewHolder = new ViewHolder(film2);
         }
 
@@ -85,45 +89,50 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        RelativeLayout container;
-        TextView tvTitle;
-        TextView tvOverview;
-        ImageView ivPoster;
+//        RelativeLayout container;
+//        TextView tvTitle;
+//        TextView tvOverview;
+//        ImageView ivPoster;
+        ItemMovieBinding itemMovieBinding;
         int radius;
 
 
 
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            tvTitle = itemView.findViewById(R.id.tvTitle);
-            tvOverview = itemView.findViewById(R.id.tvOverview);
-            ivPoster = itemView.findViewById(R.id.ivPoster);
-            container = itemView.findViewById(R.id.container);
+        public ViewHolder(@NonNull ItemMovieBinding itemMovieBinding1) {
+            super(itemMovieBinding1.getRoot());
+//            tvTitle = itemView.findViewById(R.id.tvTitle);
+//            tvOverview = itemView.findViewById(R.id.tvOverview);
+//            ivPoster = itemView.findViewById(R.id.ivPoster);
+//            container = itemView.findViewById(R.id.container);
+            itemMovieBinding = itemMovieBinding1;
             radius = 50;
 
 
         }
 
         public void bind(Movie movie) {
-            tvTitle.setText(movie.getTitle());
-            tvOverview.setText(movie.getOverview());
-            String imageUrl;
-            // if phone is in landscape
-            if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                // then imageUrl = back drop image
-                imageUrl = movie.getBackdropPath();
-            } else {
-                // else imageUrl = poster image
-                imageUrl = movie.getPosterPath();
-            }
-            Glide.with(context)
-                    .load(imageUrl)
-                    .fitCenter() // scale image to fill the entire ImageView
-                    .transform(new RoundedCorners(radius))
-                    .placeholder(R.drawable.terre)
-                    .into(ivPoster);
+//            tvTitle.setText(movie.getTitle());
+//            tvOverview.setText(movie.getOverview());
+            itemMovieBinding.setMovie(movie);
+            itemMovieBinding.executePendingBindings();
 
-            container.setOnClickListener(new View.OnClickListener() {
+//            String imageUrl;
+//            // if phone is in landscape
+//            if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+//                // then imageUrl = back drop image
+//                imageUrl = movie.getBackdropPath();
+//            } else {
+//                // else imageUrl = poster image
+//                imageUrl = movie.getPosterPath();
+//            }
+//            Glide.with(context)
+//                    .load(imageUrl)
+//                    .fitCenter() // scale image to fill the entire ImageView
+//                    .transform(new RoundedCorners(radius))
+//                    .placeholder(R.drawable.terre)
+//                    .into(ivPoster);
+
+            itemMovieBinding.container.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     // first parameter is the context, second is the class of the activity to launch
@@ -132,7 +141,7 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     intent.putExtra("movie", Parcels.wrap(movie));
                     // brings up the second activity
                     ActivityOptions options = ActivityOptions.
-                            makeSceneTransitionAnimation((Activity)context, ivPoster, "transition");
+                            makeSceneTransitionAnimation((Activity)context, itemMovieBinding.ivPoster, "transition");
                     context.startActivity(intent, options.toBundle());
 //                    context.startActivity(intent);
 
@@ -143,30 +152,34 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     public class ViewHolder1 extends RecyclerView.ViewHolder {
-        ImageView backdropPath;
-        RelativeLayout container2;
+//        ImageView backdropPath;
+//        RelativeLayout container2;
+        PlusPopulaireBinding populaireBinding1;
         int radius;
 
-        public ViewHolder1(@NonNull View itemView) {
-            super(itemView);
-            backdropPath = itemView.findViewById(R.id.imageView);
-            container2 = itemView.findViewById(R.id.container2);
+        public ViewHolder1(@NonNull PlusPopulaireBinding populaireBinding2) {
+            super(populaireBinding2.getRoot());
+//            backdropPath = itemView.findViewById(R.id.imageView);
+//            container2 = itemView.findViewById(R.id.container2);
+            this.populaireBinding1 = populaireBinding2;
             radius = 50;
 
         }
 
-
         public void bind(Movie movie) {
-            String imageUrl;
-            imageUrl = movie.getBackdropPath();
-            Glide.with(context)
-                    .load(imageUrl)
-                    .fitCenter() // scale image to fill the entire ImageView
-                    .transform(new RoundedCorners(radius))
-                    .placeholder(R.drawable.terre)
-                    .into(backdropPath);
+//            String imageUrl;
+//            imageUrl = movie.getBackdropPath();
+//            Glide.with(context)
+//                    .load(imageUrl)
+//                    .fitCenter() // scale image to fill the entire ImageView
+//                    .transform(new RoundedCorners(radius))
+//                    .placeholder(R.drawable.terre)
+//                    .into(backdropPath);
 
-            container2.setOnClickListener(new View.OnClickListener() {
+            populaireBinding1.setMovie(movie);
+            populaireBinding1.executePendingBindings();
+
+            populaireBinding1.container2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     // first parameter is the context, second is the class of the activity to launch
@@ -175,7 +188,7 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     intent2.putExtra("movie", Parcels.wrap(movie));
                     // brings up the second activity
                     ActivityOptions options2 = ActivityOptions.
-                            makeSceneTransitionAnimation((Activity)context, backdropPath, "transition");
+                            makeSceneTransitionAnimation((Activity)context, populaireBinding1.imageView, "transition");
                     context.startActivity(intent2, options2.toBundle());
 //                    context.startActivity(intent2);
                 }
@@ -194,5 +207,31 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         }
         return position;
+    }
+
+    public static class BindingAdapterUtils{
+        static int radius = 50;
+
+        @BindingAdapter({"imageUrl"})
+        public static void loadImage(ImageView ivPoster, String imageUrl){
+
+            Glide.with(context)
+                    .load(imageUrl)
+                    .fitCenter() // scale image to fill the entire ImageView
+                    .transform(new RoundedCorners(radius))
+                    .placeholder(R.drawable.terre)
+                    .into(ivPoster);
+        }
+
+        @BindingAdapter({"imageUrlPop"})
+        public static void loadImage2(ImageView imageView, String imageUrl){
+
+            Glide.with(context)
+                    .load(imageUrl)
+                    .fitCenter() // scale image to fill the entire ImageView
+                    .transform(new RoundedCorners(radius))
+                    .placeholder(R.drawable.terre)
+                    .into(imageView);
+        }
     }
 }

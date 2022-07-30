@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable name="movie" type="com.example.flixster1.models.Movie"/>
+    </data>
+
+<RelativeLayout
     android:id="@+id/container2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -18,6 +24,7 @@
         android:layout_marginStart="11dp"
         android:layout_marginTop="8dp"
         tools:srcCompat="@tools:sample/avatars"
+        app:imageUrlPop="@{movie.backdropPath}"
         />
 
     <ImageView
@@ -31,3 +38,4 @@
         android:layout_marginEnd="300dp"
         app:srcCompat="@mipmap/iconbtn" />
 </RelativeLayout>
+</layout>
