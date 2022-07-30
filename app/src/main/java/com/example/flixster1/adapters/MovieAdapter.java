@@ -18,6 +18,7 @@ import androidx.core.app.ActivityOptionsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.flixster1.DetailActivity;
 import com.example.flixster1.R;
 
@@ -88,6 +89,7 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         TextView tvTitle;
         TextView tvOverview;
         ImageView ivPoster;
+        int radius;
 
 
 
@@ -97,6 +99,7 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             tvOverview = itemView.findViewById(R.id.tvOverview);
             ivPoster = itemView.findViewById(R.id.ivPoster);
             container = itemView.findViewById(R.id.container);
+            radius = 50;
 
 
         }
@@ -115,6 +118,8 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             }
             Glide.with(context)
                     .load(imageUrl)
+                    .fitCenter() // scale image to fill the entire ImageView
+                    .transform(new RoundedCorners(radius))
                     .placeholder(R.drawable.terre)
                     .into(ivPoster);
 
@@ -140,11 +145,13 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public class ViewHolder1 extends RecyclerView.ViewHolder {
         ImageView backdropPath;
         RelativeLayout container2;
+        int radius;
 
         public ViewHolder1(@NonNull View itemView) {
             super(itemView);
             backdropPath = itemView.findViewById(R.id.imageView);
             container2 = itemView.findViewById(R.id.container2);
+            radius = 50;
 
         }
 
@@ -154,6 +161,8 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             imageUrl = movie.getBackdropPath();
             Glide.with(context)
                     .load(imageUrl)
+                    .fitCenter() // scale image to fill the entire ImageView
+                    .transform(new RoundedCorners(radius))
                     .placeholder(R.drawable.terre)
                     .into(backdropPath);
 
@@ -178,9 +187,9 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @Override
     public int getItemViewType(int position) {
         //More to come
-        if (movies.get(position).getVote_average() < 5) {
+        if (movies.get(position).getVote_average() < 7.5) {
             return 0;
-        } else if (movies.get(position).getVote_average() >= 5) {
+        } else if (movies.get(position).getVote_average() >= 7.5) {
             return 1;
 
         }

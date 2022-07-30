@@ -19,4 +19,14 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="15dp"
         tools:srcCompat="@tools:sample/avatars" />
+
+    <ImageView
+        android:id="@+id/playIcon"
+        android:layout_width="66dp"
+        android:layout_height="62dp"
+        android:layout_alignTop="@+id/imageView"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="41dp"
+        android:layout_marginEnd="173dp"
+        app:srcCompat="@mipmap/iconbtn" />
 </RelativeLayout>
