@@ -1,6 +1,7 @@
 package com.example.flixster1.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,12 +15,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.flixster1.DetailActivity;
 import com.example.flixster1.R;
 
 import java.util.List;
 
+//import com.example.flixster1.databinding.ItemMovieBinding;
 import com.example.flixster1.models.Movie;
 
+import org.parceler.Parcels;
 
 
 public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -77,10 +81,11 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-
+        RelativeLayout container;
         TextView tvTitle;
         TextView tvOverview;
         ImageView ivPoster;
+
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -88,6 +93,7 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvOverview = itemView.findViewById(R.id.tvOverview);
             ivPoster = itemView.findViewById(R.id.ivPoster);
+            container = itemView.findViewById(R.id.container);
 
 
         }
@@ -109,16 +115,31 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     .placeholder(R.drawable.terre)
                     .into(ivPoster);
 
+            container.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // first parameter is the context, second is the class of the activity to launch
+                    Intent intent = new Intent(context, DetailActivity.class);
+                    // put "extras" into the bundle for access in the second activity
+                    intent.putExtra("movie", Parcels.wrap(movie));
+//                    intent.putExtra("movie", movie.getTitle());
+                    // brings up the second activity
+                    context.startActivity(intent);
+
+                }
+            });
 
         }
     }
 
     public class ViewHolder1 extends RecyclerView.ViewHolder {
         ImageView backdropPath;
+        RelativeLayout container2;
 
         public ViewHolder1(@NonNull View itemView) {
             super(itemView);
             backdropPath = itemView.findViewById(R.id.imageView);
+            container2 = itemView.findViewById(R.id.container2);
 
         }
 
@@ -130,6 +151,19 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     .load(imageUrl)
                     .placeholder(R.drawable.terre)
                     .into(backdropPath);
+
+            container2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // first parameter is the context, second is the class of the activity to launch
+                    Intent intent2 = new Intent(context, DetailActivity.class);
+                    // put "extras" into the bundle for access in the second activity
+                    intent2.putExtra("movie", Parcels.wrap(movie));
+//                    intent2.putExtra("movie", movie.getTitle());
+                    // brings up the second activity
+                    context.startActivity(intent2);
+                }
+            });
         }
     }
 
@@ -137,9 +171,9 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @Override
     public int getItemViewType(int position) {
         //More to come
-        if (movies.get(position).getVote_average() < 5) {
+        if (movies.get(position).getVote_average() < 7.5) {
             return 0;
-        } else if (movies.get(position).getVote_average() >= 5) {
+        } else if (movies.get(position).getVote_average() >= 7.5) {
             return 1;
 
         }

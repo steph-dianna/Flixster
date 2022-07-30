@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DetailActivity"
+    android:orientation="vertical">
+
+    <com.google.android.youtube.player.YouTubePlayerView
+        android:id="@+id/youtubePlayer"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"/>
+
+        <TextView
+            android:id="@+id/mvtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="MOVIETITLE"/>
+
+        <RatingBar
+            android:id="@+id/mvrating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:isIndicator="true"
+            android:numStars="10"
+            />
+
+        <TextView
+            android:id="@+id/mvOverview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="MOVIEOVERVIEW"/>
+</LinearLayout>
