@@ -49,7 +49,6 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Log.i("MovieAdapter", "onCreateViewHolder ");
-//        View movieView = LayoutInflater.from(context).inflate(R.layout.item_movie, parent, false);
 //        return new ViewHolder(movieView);
         RecyclerView.ViewHolder viewHolder;
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
@@ -89,10 +88,6 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-//        RelativeLayout container;
-//        TextView tvTitle;
-//        TextView tvOverview;
-//        ImageView ivPoster;
         ItemMovieBinding itemMovieBinding;
         int radius;
 
@@ -100,10 +95,6 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         public ViewHolder(@NonNull ItemMovieBinding itemMovieBinding1) {
             super(itemMovieBinding1.getRoot());
-//            tvTitle = itemView.findViewById(R.id.tvTitle);
-//            tvOverview = itemView.findViewById(R.id.tvOverview);
-//            ivPoster = itemView.findViewById(R.id.ivPoster);
-//            container = itemView.findViewById(R.id.container);
             itemMovieBinding = itemMovieBinding1;
             radius = 50;
 
@@ -111,26 +102,8 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
 
         public void bind(Movie movie) {
-//            tvTitle.setText(movie.getTitle());
-//            tvOverview.setText(movie.getOverview());
             itemMovieBinding.setMovie(movie);
             itemMovieBinding.executePendingBindings();
-
-//            String imageUrl;
-//            // if phone is in landscape
-//            if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-//                // then imageUrl = back drop image
-//                imageUrl = movie.getBackdropPath();
-//            } else {
-//                // else imageUrl = poster image
-//                imageUrl = movie.getPosterPath();
-//            }
-//            Glide.with(context)
-//                    .load(imageUrl)
-//                    .fitCenter() // scale image to fill the entire ImageView
-//                    .transform(new RoundedCorners(radius))
-//                    .placeholder(R.drawable.terre)
-//                    .into(ivPoster);
 
             itemMovieBinding.container.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -152,29 +125,17 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     public class ViewHolder1 extends RecyclerView.ViewHolder {
-//        ImageView backdropPath;
-//        RelativeLayout container2;
         PlusPopulaireBinding populaireBinding1;
         int radius;
 
         public ViewHolder1(@NonNull PlusPopulaireBinding populaireBinding2) {
             super(populaireBinding2.getRoot());
-//            backdropPath = itemView.findViewById(R.id.imageView);
-//            container2 = itemView.findViewById(R.id.container2);
             this.populaireBinding1 = populaireBinding2;
             radius = 50;
 
         }
 
         public void bind(Movie movie) {
-//            String imageUrl;
-//            imageUrl = movie.getBackdropPath();
-//            Glide.with(context)
-//                    .load(imageUrl)
-//                    .fitCenter() // scale image to fill the entire ImageView
-//                    .transform(new RoundedCorners(radius))
-//                    .placeholder(R.drawable.terre)
-//                    .into(backdropPath);
 
             populaireBinding1.setMovie(movie);
             populaireBinding1.executePendingBindings();
@@ -184,13 +145,14 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 public void onClick(View view) {
                     // first parameter is the context, second is the class of the activity to launch
                     Intent intent2 = new Intent(context, DetailActivity.class);
+
                     // put "extras" into the bundle for access in the second activity
                     intent2.putExtra("movie", Parcels.wrap(movie));
+
                     // brings up the second activity
                     ActivityOptions options2 = ActivityOptions.
                             makeSceneTransitionAnimation((Activity)context, populaireBinding1.imageView, "transition");
                     context.startActivity(intent2, options2.toBundle());
-//                    context.startActivity(intent2);
                 }
             });
         }
@@ -200,9 +162,9 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @Override
     public int getItemViewType(int position) {
         //More to come
-        if (movies.get(position).getVote_average() < 7.5) {
+        if (movies.get(position).getVote_average() < 5) {
             return 0;
-        } else if (movies.get(position).getVote_average() >= 7.5) {
+        } else if (movies.get(position).getVote_average() >= 5) {
             return 1;
 
         }

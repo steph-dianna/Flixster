@@ -64,7 +64,7 @@ public class DetailActivity extends YouTubeBaseActivity {
                     Log.d("DetailActivity",youtubeKey);
                     initializeYoutube(youtubeKey);
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    Log.e("DetailActivity","Failed to parse JSON",e);
                 }
             }
 
@@ -82,7 +82,7 @@ public class DetailActivity extends YouTubeBaseActivity {
             @Override
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
                 Log.d("DetailActivity","onInitializationSuccess");
-                if ((float) movie.getVote_average() > 7.5){
+                if ((float) movie.getVote_average() > 5){
                     youTubePlayer.loadVideo(youtubeKey);
 
                 }
