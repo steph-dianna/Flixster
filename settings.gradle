@@ -12,6 +12,6 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "Flixster1"
+rootProject.name = "Flixster"
 include ':app'
 include ':app'
